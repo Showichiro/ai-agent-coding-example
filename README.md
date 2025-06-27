@@ -8,6 +8,7 @@ This is a simple Todo application built with Next.js, following Test-Driven Deve
 *   [React](https://react.dev/)
 *   [TypeScript](https://www.typescriptlang.org/)
 *   [Tailwind CSS](https://tailwindcss.com/)
+*   [Prisma](https://www.prisma.io/)
 *   [Vitest](https://vitest.dev/)
 
 ## Getting Started

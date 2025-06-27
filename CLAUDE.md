@@ -25,6 +25,7 @@ This is a Next.js 15 Todo application following Test-Driven Development (TDD) pr
 - **React 19** 
 - **TypeScript** for type safety
 - **Tailwind CSS 4** for styling
+- **Prisma** for ORM
 - **Vitest** with jsdom for testing
 - **pnpm** as package manager
 
