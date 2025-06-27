@@ -5,8 +5,7 @@ This document outlines the structure of the `docs` directory, designed to provid
 ## Core Documents
 
 -   **`00_OVERVIEW.md`**: This file. It provides a high-level summary of the project, its purpose, and goals.
--   **`01_ARCHITECTURE.md`**: Explains the overall system architecture, technology stack, and the rationale behind the directory structure.
--   **`02_DESIGN_SYSTEM.md`**: Defines the visual and interaction design principles, including color palettes, typography, and specifications for common UI components.
+-   **`01_DESIGN_RULES.md`**: Defines Application design rules.
 -   **`glossary.md`**: A glossary of terms to eliminate ambiguity and improve the precision of AI inference.
 
 ## Detailed Specification Directories
