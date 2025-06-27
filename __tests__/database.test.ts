@@ -1,12 +1,29 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { prisma } from '../lib/prisma'
+import type { User, Task } from '@prisma/client'
+
+// Test data factories
+const createUserData = (overrides: Partial<{email: string, password: string, name?: string}> = {}) => ({
+  email: 'test@example.com',
+  password: 'hashedpassword123',
+  name: 'Test User',
+  ...overrides
+})
+
+const createTaskData = (userId: number, overrides: Partial<{title: string, description?: string, status?: string, dueDate?: Date}> = {}) => ({
+  title: 'Test Task',
+  userId,
+  ...overrides
+})
+
+// Test helpers
+const cleanupDatabase = async () => {
+  await prisma.task.deleteMany()
+  await prisma.user.deleteMany()
+}
 
 describe('Database Connection and Models', () => {
-  afterEach(async () => {
-    // Clean up database after each test
-    await prisma.task.deleteMany()
-    await prisma.user.deleteMany()
-  })
+  afterEach(cleanupDatabase)
 
   describe('User Model', () => {
     it('should create a user with email and password', async () => {
