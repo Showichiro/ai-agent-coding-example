@@ -11,7 +11,6 @@ This document outlines the structure of the `docs` directory, designed to provid
 
 ## Detailed Specification Directories
 
--   **`api/`**: Contains documents related to API specifications, detailing endpoints, request/response formats, and authentication methods. Useful for automating front-end and back-end integration.
 -   **`domain/`**: Defines business rules, entities, and value objects. This enables coding based on clear business logic.
 -   **`features/`**: Holds specifications for each distinct application feature, described from a user's perspective.
 -   **`ui/`**: Provides details on screen layouts, user flows, event handling, and state management. This helps in deriving code for UI components.
