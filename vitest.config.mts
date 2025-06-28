@@ -6,6 +6,25 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
     environment: 'jsdom',
-    setupFiles: ['./test-setup.ts'],
+    setupFiles: ['./test-setup.ts', './vitest.setup.ts'],
+    globals: true,
+    pool: 'forks',
+    coverage: {
+      reporter: ['text', 'json', 'html'],
+      exclude: [
+        'node_modules/**',
+        '__tests__/**',
+        '*.config.*',
+        '*.setup.*',
+        'coverage/**',
+        'dist/**',
+        '.next/**'
+      ]
+    },
+    env: {
+      NODE_ENV: 'test',
+      DATABASE_URL: 'file:./test.db',
+      VITEST_MOCK_PRISMA: 'false'
+    }
   },
 })
