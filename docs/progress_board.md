@@ -38,9 +38,9 @@ Last updated: 2025-06-28
 - In progress: 0
 - Delayed: 0
 
-### Frontend Team (Deputy Task Manager: %4)
-- Completed this week: 0
-- In progress: 0
+### Frontend Team (Deputy Task Manager: %57)
+- Completed this week: 2 (UI/UXデザイン設計, フロントエンド技術仕様 - Design Phase Complete)
+- In progress: 1 (Frontend component implementation - Implementation Phase)
 - Delayed: 0
 
 ---
