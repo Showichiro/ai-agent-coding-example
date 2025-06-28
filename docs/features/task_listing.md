@@ -25,13 +25,15 @@ Display all user tasks with filtering and sorting capabilities.
 - As a user, I want to sort tasks by due date to prioritize work
 - As a user, I want to sort by creation date to see recent additions
 
-## API Specification
-- **Endpoint**: GET /api/tasks
-- **Query Parameters**: 
-  - status: string
-  - sort_by: "created_at" | "due_date" | "title" | "status"
-  - sort_order: "asc" | "desc"
-- **Response**: { tasks: Task[], total: number }
+## Server Action Specification
+- **Function**: `getTasks(filters?: TaskFilters)`
+- **Location**: `actions.ts` with `'use server'` directive
+- **Input Parameters**: 
+  - status?: "todo" | "in_progress" | "done" | "all"
+  - sort_by?: "created_at" | "due_date" | "title" | "status"
+  - sort_order?: "asc" | "desc"
+- **Input Validation**: Zod schema for filter parameters
+- **Return**: { tasks: Task[], total: number }
 
 ## UI Requirements
 - Task list container

@@ -79,17 +79,27 @@ The Task model represents a single task or todo item in the application. This sp
   - due_date (for filtering)
   - status (for filtering)
 
-## API Response Format
+## Server Action Data Format
 
-```json
-{
-  "id": "uuid-string",
-  "title": "string",
-  "description": "string|null",
-  "status": "todo|in_progress|done", 
-  "due_date": "ISO-date-string|null",
-  "created_at": "ISO-date-string",
-  "updated_at": "ISO-date-string"
+Server Actions in `actions.ts` work with the following TypeScript interfaces:
+
+```typescript
+// Input for createTask Server Action
+interface CreateTaskInput {
+  title: string;           // 1-100 characters, required
+  description?: string;    // 0-500 characters, optional
+  due_date?: string;       // ISO date string, optional
+}
+
+// Output from all Task Server Actions
+interface TaskOutput {
+  id: string;              // UUID auto-generated
+  title: string;           // User-provided title
+  description: string | null;  // User description or null
+  status: "todo" | "in_progress" | "done";
+  due_date: string | null;     // ISO date string or null
+  created_at: string;          // ISO date string
+  updated_at: string;          // ISO date string
 }
 ```
 

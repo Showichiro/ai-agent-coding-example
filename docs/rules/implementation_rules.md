@@ -53,7 +53,7 @@ The review results are stored in `docs/reviews`. After receiving a report of rev
 |------------------|------|
 | Frontend         | TS + React (Next.js 15 App Router) |
 | Server Logic     | Server Actions (`'use server'` + `after()`) |
-| ORM              | Prisma + PostgreSQL |
+| ORM              | Prisma + SQLite |
 | Validation       | Zod |
 | Testing          | Vitest + Testing Library |
 | Bundler/Lint     | Turbopack, ESLint v9, Prettier |

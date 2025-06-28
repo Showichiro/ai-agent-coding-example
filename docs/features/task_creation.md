@@ -20,10 +20,12 @@ Enable users to create new tasks with required and optional information.
 - As a user, I want to add a description and due date for detailed planning
 - As a user, I want immediate feedback when task creation succeeds or fails
 
-## API Specification
-- **Endpoint**: POST /api/tasks
-- **Request Body**: { title, description?, due_date? }
-- **Response**: { id, title, description, status, due_date, created_at, updated_at }
+## Server Action Specification
+- **Function**: `createTask(formData: FormData)`
+- **Location**: `actions.ts` with `'use server'` directive
+- **Input Validation**: Zod schema for { title, description?, due_date? }
+- **Return**: Task object { id, title, description, status, due_date, created_at, updated_at }
+- **Post-mutation**: `revalidatePath('/tasks')` to update cache
 
 ## UI Requirements
 - Task creation form with title input (required)

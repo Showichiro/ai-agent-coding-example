@@ -23,10 +23,13 @@ Allow users to view, edit, delete, and change status of existing tasks.
 - As a user, I want to delete tasks that are no longer needed
 - As a user, I want to change task status to track progress
 
-## API Specification
-- **Update**: PUT /api/tasks/[id]
-- **Delete**: DELETE /api/tasks/[id] 
-- **Status**: PATCH /api/tasks/[id]/status
+## Server Action Specification
+- **Update Function**: `updateTask(id: string, formData: FormData)`
+- **Delete Function**: `deleteTask(id: string)`
+- **Status Function**: `updateTaskStatus(id: string, status: TaskStatus)`
+- **Location**: `actions.ts` with `'use server'` directive
+- **Input Validation**: Zod schemas for each operation
+- **Post-mutation**: `revalidatePath('/tasks')` to update cache
 
 ## UI Requirements
 - Edit button on each task
