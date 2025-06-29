@@ -51,7 +51,7 @@ export async function createTask(formData: FormData) {
     data: {
       title: validatedData.title,
       description: validatedData.description || null,
-      due_date: validatedData.due_date ? new Date(validatedData.due_date) : null,
+      dueDate: validatedData.due_date ? new Date(validatedData.due_date) : null,
     },
   })
 

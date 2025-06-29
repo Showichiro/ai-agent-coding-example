@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
+    "typescript": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "--scope",
+        "local",
+        "--",
+        "@mizchi/lsmcp",
+        "--language=typescript"
+      ]
+    }
+  }
+}

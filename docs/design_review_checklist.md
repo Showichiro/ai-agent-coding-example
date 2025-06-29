@@ -57,6 +57,7 @@
 | W-02       | Are features traceable back to requirements, and designs traceable to features?             |           |       |
 | W-03       | Is `design_rules.md` being followed strictly (no bypass of layers)?                         |           |       |
 | W-04       | Does the system reject or warn if any layer is missing before proceeding to implementation? |           |       |
+| W-05       | **Are implementation constraints in `implementation_rules.md` reflected in the design?**     |           |       |
 
 ---
 

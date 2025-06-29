@@ -8,21 +8,25 @@ datasource db {
 }
 
 model Task {
-  id          String      @id @default(uuid())
+  id          String    @id @default(cuid())
   title       String
   description String?
-  status      TaskStatus  @default(TODO)
-  due_date    DateTime?
-  created_at  DateTime    @default(now())
-  updated_at  DateTime    @updatedAt
+  status      TaskStatus @default(TODO)
+  dueDate     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
-  @@index([created_at])
-  @@index([due_date])
   @@index([status])
+  @@index([createdAt])
+  @@index([dueDate])
+  @@index([status, createdAt])
+  @@map("tasks")
 }
 
 enum TaskStatus {
   TODO
   IN_PROGRESS
   DONE
+
+  @@map("task_status")
 }

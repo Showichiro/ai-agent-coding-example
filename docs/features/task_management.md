@@ -1,50 +1,131 @@
-# Task Management Feature
+# タスク管理機能仕様
 
-## Purpose
-Allow users to view, edit, delete, and change status of existing tasks.
+## 概要
 
-## Input/Output Behavior
+TODOアプリにおけるタスク管理の中核機能。ユーザーがタスクを作成、編集、削除、ステータス変更、フィルタリング、ソートできる機能を提供する。
 
-### Task Editing
-- **Input**: Task ID + updated fields (title, description, due_date)
-- **Output**: Updated task object
+## 機能一覧
 
-### Task Deletion
-- **Input**: Task ID
-- **Output**: Confirmation of deletion
+### F001: タスク作成機能
+**目的**: ユーザーが新しいタスクを作成できる
 
-### Status Change
-- **Input**: Task ID + new status ("todo" | "in_progress" | "done")
-- **Output**: Task with updated status
+**入力**:
+- `title`: 文字列（必須、1-200文字）
+- `description`: 文字列（任意、最大1000文字）
+- `due_date`: ISO形式の日付文字列（任意）
 
-## User Stories
-- As a user, I want to edit task details to keep information current
-- As a user, I want to mark tasks as complete when finished
-- As a user, I want to delete tasks that are no longer needed
-- As a user, I want to change task status to track progress
+**処理**:
+- 入力値の検証
+- 初期ステータスを "todo" に設定
+- 作成日時を現在時刻に設定
+- データベースに保存
 
-## Server Action Specification
-- **Update Function**: `updateTask(id: string, formData: FormData)`
-- **Delete Function**: `deleteTask(id: string)`
-- **Status Function**: `updateTaskStatus(id: string, status: TaskStatus)`
-- **Location**: `actions.ts` with `'use server'` directive
-- **Input Validation**: Zod schemas for each operation
-- **Post-mutation**: `revalidatePath('/tasks')` to update cache
+**出力**:
+- 作成されたタスクオブジェクト
+- エラーハンドリング
 
-## UI Requirements
-- Edit button on each task
-- Delete confirmation dialog
-- Status toggle buttons/dropdown
-- Inline editing capability
-- Undo functionality for accidental changes
+### F002: タスク編集機能
+**目的**: 既存タスクの情報を更新できる
 
-## Dependencies
-- Task model definition
-- Task list display
-- Authentication (user owns task)
+**入力**:
+- `task_id`: タスクID（必須）
+- `title`: 文字列（任意、1-200文字）
+- `description`: 文字列（任意、最大1000文字）  
+- `due_date`: ISO形式の日付文字列（任意）
 
-## Edge Cases
-- Task not found (404)
-- Unauthorized edit attempt
-- Concurrent edits by multiple sessions
-- Network interruption during save
+**処理**:
+- タスク存在確認
+- 入力値の検証
+- 更新日時を現在時刻に設定
+- データベース更新
+
+**出力**:
+- 更新されたタスクオブジェクト
+- エラーハンドリング
+
+### F003: タスク削除機能
+**目的**: 不要なタスクを削除できる
+
+**入力**:
+- `task_id`: タスクID（必須）
+
+**処理**:
+- タスク存在確認
+- データベースから削除
+
+**出力**:
+- 削除完了の確認
+- エラーハンドリング
+
+### F004: ステータス変更機能
+**目的**: タスクのステータスを変更できる
+
+**入力**:
+- `task_id`: タスクID（必須）
+- `status`: "todo" | "in_progress" | "done"（必須）
+
+**処理**:
+- タスク存在確認
+- ステータス値の検証
+- 更新日時を現在時刻に設定
+- データベース更新
+
+**出力**:
+- 更新されたタスクオブジェクト
+- エラーハンドリング
+
+### F005: タスク一覧取得機能
+**目的**: ユーザーのタスク一覧を取得できる
+
+**入力**:
+- `sort_by`: "created_at" | "due_date"（任意、デフォルト: "created_at"）
+- `sort_order`: "asc" | "desc"（任意、デフォルト: "desc"）
+
+**処理**:
+- 指定されたソート条件でタスクを取得
+- 最大100件まで取得
+
+**出力**:
+- タスク配列
+- 件数情報
+
+### F006: フィルタリング機能
+**目的**: ステータス別にタスクをフィルタリングできる
+
+**入力**:
+- `status_filter`: "todo" | "in_progress" | "done" | "all"（任意、デフォルト: "all"）
+- `sort_by`: "created_at" | "due_date"（任意、デフォルト: "created_at"）
+- `sort_order`: "asc" | "desc"（任意、デフォルト: "desc"）
+
+**処理**:
+- ステータス条件でフィルタリング
+- 指定されたソート条件で並び替え
+
+**出力**:
+- フィルタリングされたタスク配列
+- 件数情報
+
+## 制約事項
+
+- 1ユーザーあたりの最大タスク数: 100件
+- タイトルは必須項目
+- 作成日時、更新日時は自動設定
+- 削除は物理削除（復元不可）
+
+## エラーハンドリング
+
+- バリデーションエラー: 400 Bad Request
+- タスク未存在: 404 Not Found  
+- 最大件数超過: 422 Unprocessable Entity
+- システムエラー: 500 Internal Server Error
+
+## 要件トレーサビリティ
+
+| 機能 | 基本要件での対応項目 |
+|------|---------------------|
+| F001 | タスクの作成 |
+| F002 | タスクの編集 |
+| F003 | タスクの削除 |
+| F004 | ステータス変更（例：「完了」にする） |
+| F005 | タスク一覧の取得（ソート：作成日順 / 締切順） |
+| F006 | ステータス別にタスクをフィルタリング、締切日で昇順／降順ソート |
